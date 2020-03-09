@@ -32,7 +32,12 @@ RUN dpkg --add-architecture i386 && \
     git xvfb apt gcc libncurses5:i386 libc6:i386 libstdc++6:i386 lib32gcc1 lib32z1 zlib1g:i386\
     locales sudo openssh-client ca-certificates tar gzip parallel \
     net-tools netcat unzip zip bzip2 gnupg curl wget make autoconf \
-		libbluetooth-dev tk-dev uuid-dev qt5-default \
+		libbluetooth-dev tk-dev uuid-dev qt5-default libssl-dev \
+    libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \ 
+    libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \ 
+    libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 \ 
+    libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \ 
+    libnss3 build-essential g++ \
   && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -57,6 +62,8 @@ RUN set -eux; \
 ENV RUBY_MAJOR 2.6
 ENV RUBY_VERSION 2.6.5
 ENV RUBY_DOWNLOAD_SHA256 d5d6da717fd48524596f9b78ac5a2eeb9691753da5c06923a6c31190abe01a62
+
+ARG bundler_version=2.1.2
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -120,6 +127,7 @@ RUN set -eux; \
 # rough smoke test
 	ruby --version; \
 	gem --version; \
+  gem install bundler -v ${bundler_version}; \
 	bundle --version
 
 # don't create ".bundle" in all our apps
@@ -215,7 +223,6 @@ RUN set -ex \
 		libncursesw5-dev \
 		libreadline-dev \
 		libsqlite3-dev \
-		libssl-dev \
 		make \
 		tk-dev \
 		uuid-dev \
