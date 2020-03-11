@@ -401,7 +401,7 @@ RUN sudo chown -R circleci /usr/local/lib/node_modules \
   && sudo chmod -R +x /usr/local/lib/node_modules \
   && sudo chown -R circleci /usr/local/bin \
   && sudo chmod -R +x /usr/local/bin \
-  && npm i -g @ionic/cli cordova cordova-res @capacitor/core @capacitor/cli
+  && npm i -g ionic@5.4.16 cordova cordova-res
 
 ARG ndk_version=android-ndk-r20
 ARG android_ndk_home=/opt/android/${ndk_version}
