@@ -16,6 +16,7 @@ services:
         hard: -1
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
+      - elasticsearch-restore:/usr/share/elasticsearch/restore
     ports:
       - 9200:9200
     networks:
